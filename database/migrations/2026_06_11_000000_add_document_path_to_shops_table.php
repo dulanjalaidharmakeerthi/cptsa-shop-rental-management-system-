@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('shops', function (Blueprint $table) {
+            if (!Schema::hasColumn('shops', 'document_path')) {
+                $table->string('document_path', 255)->nullable()->after('image3_path');
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('shops', function (Blueprint $table) {
+            if (Schema::hasColumn('shops', 'document_path')) {
+                $table->dropColumn('document_path');
+            }
+        });
+    }
+};
